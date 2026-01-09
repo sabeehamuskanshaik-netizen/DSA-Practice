@@ -1,0 +1,40 @@
+class Solution {
+    public int[][] highFive(int[][] items) {
+        // studentId -> min-heap of top 5 scores
+        Map<Integer, PriorityQueue<Integer>> map = new HashMap<>();
+
+        // Step 1: collect top 5 scores per student
+        for (int[] it : items) {
+            int id = it[0];
+            int score = it[1];
+
+            map.putIfAbsent(id, new PriorityQueue<>());
+            PriorityQueue<Integer> pq = map.get(id);
+
+            pq.add(score);
+            if (pq.size() > 5) {
+                pq.poll(); // remove smallest
+            }
+        }
+
+        // Step 2: prepare result
+        int[][] res = new int[map.size()][2];
+        int idx = 0;
+
+        // students must be in ascending order of id
+        List<Integer> ids = new ArrayList<>(map.keySet());
+        Collections.sort(ids);
+
+        for (int id : ids) {
+            int sum = 0;
+            for (int s : map.get(id)) {
+                sum += s;
+            }
+            res[idx][0] = id;
+            res[idx][1] = sum / 5;
+            idx++;
+        }
+
+        return res;
+    }
+}
