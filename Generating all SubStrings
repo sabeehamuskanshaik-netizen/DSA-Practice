@@ -1,0 +1,23 @@
+import java.util.*;
+class Solution {
+    public static List<String> substrings(String s,int idx,int n,List<String> res,StringBuilder sb){
+        if(idx==n){
+            return new ArrayList<>();
+        }
+        sb.append(s.charAt(idx));
+        res.add(sb.toString());
+        substrings(s,idx+1,n,res,sb);
+        sb.deleteCharAt(sb.length()-1);
+        substrings(s,idx+1,n,res,sb);
+        return res;
+    }
+    public static void main(String[] args) {
+        String s="abc";
+        int n=s.length();
+        List<String> res=new ArrayList<>();
+        StringBuilder sb=new StringBuilder();
+        List<String> ans=substrings(s,0,n,res,sb);
+        System.out.println(ans);
+     
+    }
+}
