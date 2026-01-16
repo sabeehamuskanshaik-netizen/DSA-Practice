@@ -1,0 +1,22 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static void print(String str,int n, int idx,StringBuilder sb){
+        if(idx==n){
+            System.out.println(sb);
+            return;
+        }
+        sb.append(str.charAt(idx));
+        print(str,n,idx+1,sb);
+        sb.deleteCharAt(sb.length()-1);
+        print(str,n,idx+1,sb);   
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc=new Scanner(System.in);
+        String str=sc.next();
+        print(str,str.length(),0,new StringBuilder());
+    }
+}
