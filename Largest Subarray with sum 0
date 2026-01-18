@@ -1,0 +1,35 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int arr[]=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=sc.nextInt();
+        }
+        int count=0;
+        HashMap<Integer,Integer>map=new HashMap<>();
+        int pref[]=new int[n];
+        pref[0]=arr[0];
+        for(int i=1;i<n;i++){
+            pref[i]=pref[i-1]+arr[i];
+        }
+        for(int i=0;i<n;i++){
+            if(pref[i]==0){
+                count=i+1;
+            }
+            if(map.containsKey(pref[i])){
+                 int prevIndex = map.get(pref[i]);
+                 count=Math.max(count,i-prevIndex);
+            }else{
+                map.put(pref[i],i);
+            }
+             
+        }
+        System.out.println(count);
+    }
+}
